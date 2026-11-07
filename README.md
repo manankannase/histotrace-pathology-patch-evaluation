@@ -1,11 +1,11 @@
 # HistoTrace — Histopathology Patch Evaluation
 
 Maintained by **Manan Kannasey**. HistoTrace adds a reproducible prediction-evaluation
-tool to the histopathology classification project by **Vedant A Sontake, Debdut Saini,
-and Suborno Biswas**. The original notebook compares transfer learning, CNN, MLP,
-and classical classifiers on PatchCamelyon image patches.
+tool to an existing histopathology classification project. The original notebook
+compares transfer learning, CNN, MLP, and classical classifiers on PatchCamelyon
+image patches.
 
-Source repository: [Debdut0122/histopathologic-cancer-detection](https://github.com/Debdut0122/histopathologic-cancer-detection)
+Source repository: [Original histopathology project](https://github.com/Debdut0122/histopathologic-cancer-detection)
 at commit `33ae18c92facf26106da5953f1a78a1530dd71fc`.
 
 ## Contribution in this fork
@@ -59,8 +59,8 @@ patch-level research measurements. Clinical performance requires its own validat
 
 ## Source and reuse
 
-This repository retains the source project's history and contributor credits as a
-GitHub fork. The upstream repository supplies no license file, so no project-wide
+This repository credits the source project linked above and retains its history as
+a GitHub fork. The upstream repository supplies no license file, so no project-wide
 license has been added here.
 
 ## Original project documentation
@@ -143,12 +143,6 @@ table above that the transfer learning model is outperformed over other models i
   ```
   streamlit run app.py
   ```
-## Contributors
-|Name|Branch|Institute|
-|--|--|--|
-|[Vedant A Sontake](https://github.com/Vedant-02)|EE|IIT Jodhpur|
-|[Debdut Saini](https://github.com/Debdut0122)|CS|IIT Jodhpur|
-|[Suborno Biswas](https://github.com/subornobiswas)|EE|IIT Jodhpur|
 ## References
 We referred to the following research papers and documentations:
 - [Cancer diagnosis in histopathological image: CNN based approach](https://www.sciencedirect.com/science/article/pii/S2352914819301133)
