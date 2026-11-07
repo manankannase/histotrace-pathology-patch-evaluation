@@ -1,4 +1,74 @@
-# Histopathologic Cancer Detection
+# HistoTrace — Histopathology Patch Evaluation
+
+Maintained by **Manan Kannasey**. HistoTrace adds a reproducible prediction-evaluation
+tool to the histopathology classification project by **Vedant A Sontake, Debdut Saini,
+and Suborno Biswas**. The original notebook compares transfer learning, CNN, MLP,
+and classical classifiers on PatchCamelyon image patches.
+
+Source repository: [Debdut0122/histopathologic-cancer-detection](https://github.com/Debdut0122/histopathologic-cancer-detection)
+at commit `33ae18c92facf26106da5953f1a78a1530dd71fc`.
+
+## Contribution in this fork
+
+`evaluate_predictions.py` is a new standalone evaluation tool added by Manan
+Kannasey. It uses only Python's standard library and checks exported prediction
+files for duplicate patch IDs, invalid labels, missing values, and invalid
+probabilities. It reports the confusion matrix, accuracy, precision, sensitivity,
+specificity, F1, ROC AUC, average precision, and Brier score as JSON.
+
+The original contributors are credited for the model implementations and historical
+results reproduced below. The new evaluation tool has been checked with synthetic
+predictions. Fresh model training and dataset evaluation are future work.
+
+## Evaluate a prediction file
+
+Use Python 3.10 or newer. Export a CSV with one row per held-out image. The
+`probability` column must contain the probability of **label 1**. For the upstream
+two-logit model, compute it using `torch.softmax(logits, dim=1)[:, 1]` in evaluation
+mode under `torch.inference_mode()`.
+
+```csv
+id,label,probability
+patch_a,0,0.10
+patch_b,1,0.90
+patch_c,1,0.40
+patch_d,0,0.70
+```
+
+Save the example as `predictions.csv`, then run:
+
+```bash
+python3 evaluate_predictions.py predictions.csv --threshold 0.5
+python3 evaluate_predictions.py predictions.csv --threshold 0.5 --output metrics.json
+```
+
+The second command creates a new file and rejects an existing output path. The
+example contains two correctly classified and two incorrectly classified patches.
+The classification rule is `probability >= threshold`. Undefined metrics are JSON
+`null`, including ROC AUC for a file containing only one label class.
+
+Choose any tuned threshold on validation data, then freeze it before evaluating
+the test set. Keep the dataset's supplied splits and record the checkpoint and
+split used when comparing reports. Duplicate-ID checks operate within the supplied
+file. Split provenance and patient/slide separation require dataset-level checks.
+
+Sensitivity measures the fraction of positive patches detected. Specificity
+measures the fraction of negative patches correctly rejected. Report both so that
+missed positive patches and false alarms can be assessed separately. These are
+patch-level research measurements. Clinical performance requires its own validation.
+
+## Source and reuse
+
+This repository retains the source project's history and contributor credits as a
+GitHub fork. The upstream repository supplies no license file, so no project-wide
+license has been added here.
+
+## Original project documentation
+
+The following documentation, figures, and reported results come from the upstream
+team. Its application uses a local checkpoint path documented in `app.py`.
+
+### Histopathologic Cancer Detection
 ## Introduction
 Cancer is a disease in which cells multiply uncontrollably and crowd out the normal cells. In biopsies, pathologists
 provide the histopathologic assessment of the microscopic structure of the tissue and make final diagnosis by applying visual
